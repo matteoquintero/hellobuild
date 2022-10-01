@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -20,15 +21,18 @@ const Home: NextPage = () => {
                 width={146}
                 height={60}
                 src={'/hellobuild.png'}
+                alt='log in'
               ></Image>
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-hello-white">
                 Sign in to your account
               </h2>
-              <p className="mt-2 text-sm text-hello-white">
+              <p className="flex mt-2 text-sm text-hello-white">
                 Or{' '}
-                <a href="/register" className="font-medium text-hello-green hover:text-hello-blue-light">
-                  Complete Register
-                </a>
+                <Link href="/register" >
+                 <p className='ml-2 cursor-pointer className="font-medium text-hello-green hover:text-hello-blue-light"'>
+                    Complete Register
+                    </p> 
+                </Link>
               </p>
             </div>
             <form className="mt-8 space-y-6" action="/repositories" method="POST" autoComplete='off'>
@@ -61,7 +65,7 @@ const Home: NextPage = () => {
                     className="relative block w-full px-3 py-2 border rounded-none appearance-none focus:ring-0 border-black/10 text-hello-white bg-hello-black placeholder-white/10 rounded-b-md focus:z-10 focus:border-hello-blue-light focus:outline-none sm:text-sm"
                     placeholder="Password"
                   />
-                </div>
+                </div>                
               </div>
 
               <div className="flex items-center justify-between">

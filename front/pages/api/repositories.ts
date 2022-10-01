@@ -1,13 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {Octokit} from 'octokit'
-import { Repository } from '../../types/repository'
-
+type Repository = {
+    name: string | null,
+    private: boolean | undefined,
+    created_at: string | null,
+    updated_at: string | null,
+    pushed_at: string | null,
+    size:number | undefined,
+    stargazers_count:number | undefined,
+    watchers_count:number | undefined,
+    language:string | null,
+    has_issues:  boolean | undefined,
+    has_projects:  boolean | undefined,
+    has_downloads:  boolean | undefined,
+    has_wiki:  boolean | undefined,
+    has_pages: boolean | undefined,
+    forks_count: number | undefined,
+    archived: boolean | undefined,
+    disabled: boolean | undefined,
+    open_issues_count: number | undefined,
+    allow_forking:  boolean | undefined,
+    is_template: boolean | undefined,
+    topics: Array<string> | undefined,
+    visibility: string | undefined,
+    forks: number | undefined,
+    open_issues: number | undefined,
+    watchers: number | undefined,
+    default_branch: string | null, 
+}
+  
 export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse<Repository[]>
 ) {
     const octokit = new Octokit({
-        auth:'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'
+        auth:'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'
     })
     const githubResponse = await octokit.request('GET /user/repos', {})
     if(!githubResponse){

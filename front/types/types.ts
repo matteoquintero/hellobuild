@@ -25,4 +25,10 @@ export type Repository = {
     open_issues: number | undefined,
     watchers: number | undefined,
     default_branch: string | null, 
+    favorite: boolean | false, 
+}
+
+export type Nav = {
+    current:number,
+    image:string  | undefined  | null
 }
