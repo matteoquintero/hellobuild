@@ -24,7 +24,6 @@ const NavBar = ({nav}:{nav:Nav}) =>{
             <div className="w-4/5 mx-auto">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                    {/* Mobile menu button*/}
                     <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-hello-white hover:bg-hello-blue-light hover:text-hello-blue-dark focus:outline-none focus:ring-0">
                         <span className="sr-only">Open main menu</span>
                         {open ? (
@@ -149,13 +148,17 @@ const NavBar = ({nav}:{nav:Nav}) =>{
                             <Menu.Item>
                             {({ active }) => (
 
-                                <button 
-                                    className={classNames(active ? 'bg-hello-green' : '', 'block px-4 py-2 text-sm text-hello-white')}
+                                <Link
+                                href={'/'}
+                            >
+
+<div 
+                                    className={classNames(active ? 'bg-hello-green' : '', 'block px-4 py-2 text-sm text-hello-white cursor-pointer')}
                                     onClick={()=> {}}
                                 >
                                     Log Out
-                                </button>
-                           
+                                </div>                                
+                            </Link>                           
                             )}
                             </Menu.Item>                            
                         </Menu.Items>

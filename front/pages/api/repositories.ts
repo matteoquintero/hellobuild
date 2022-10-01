@@ -34,7 +34,7 @@ export default async function handler(
   res: NextApiResponse<Repository[]>
 ) {
     const octokit = new Octokit({
-        auth:'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'
+        auth:'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'
     })
     const githubResponse = await octokit.request('GET /user/repos', {})
     if(!githubResponse){

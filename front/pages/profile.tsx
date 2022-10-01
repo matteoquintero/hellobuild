@@ -40,9 +40,9 @@ const Profile: NextPage = () => {
           <div className="flex items-center justify-center w-full py-8">
                 <div className="rounded shadow bg-hello-black">
                     <div className="relative">
-                        <img className="object-cover object-center w-full h-56 rounded-t shadow" src="https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_29.png" alt />
+                        <img className="object-cover object-center w-full h-56 rounded-t shadow" src="https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_29.png" alt='' />
                         <div className="absolute inset-0 bottom-0 w-24 h-24 m-auto -mb-12 border-2 border-white rounded shadow xl:ml-10">
-                            <img className="object-cover w-full h-full overflow-hidden rounded" src={session?.user?.image} alt />
+                            <img className="object-cover w-full h-full overflow-hidden rounded" src={(session?.user?.image) ? session?.user?.image : ''} alt='profile' />
                         </div>
                     </div>
                     <div className="px-5 pb-10 xl:px-10">

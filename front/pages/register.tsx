@@ -3,8 +3,38 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Register: NextPage = () => {
+
+  const handleSubmit = async (event:any) => {
+    // Stop the form from submitting and refreshing the page.
+    event.preventDefault()
+    const data = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      city: event.target.city.value,
+      password: event.target.password.value,
+    }
+    const JSONdata = JSON.stringify(data)
+    const endpoint = '/api/new-user'
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSONdata,
+    }
+
+    const response = await fetch(endpoint, options)
+    const result = await response.json()
+    if(result){
+      Router.push('/')
+      return
+    }
+    alert(`Something went wrong`)
+  }
+
   return (
 
     <div className='h-full bg-hello-blue-dark'>
@@ -35,7 +65,7 @@ const Register: NextPage = () => {
                 </Link>
               </p>
             </div>
-            <form className="mt-8 space-y-6" action="/repositories" method="POST" autoComplete='off'>
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit} autoComplete='off'>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div>
@@ -63,6 +93,19 @@ const Register: NextPage = () => {
                     required
                     className="relative block w-full px-3 py-2 border rounded-none appearance-none focus:ring-0 border-black/10 text-hello-white bg-hello-black placeholder-white/10 focus:z-10 focus:border-hello-blue-light focus:outline-none sm:text-sm"
                     placeholder="Name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="city" className="sr-only">
+                    City
+                  </label>
+                  <input
+                    id="city"
+                    name="v"
+                    type="city"
+                    required
+                    className="relative block w-full px-3 py-2 border rounded-none appearance-none focus:ring-0 border-black/10 text-hello-white bg-hello-black placeholder-white/10 focus:z-10 focus:border-hello-blue-light focus:outline-none sm:text-sm"
+                    placeholder="City"
                   />
                 </div>                
                 <div>

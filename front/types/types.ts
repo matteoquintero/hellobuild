@@ -32,3 +32,8 @@ export type Nav = {
     current:number,
     image:string  | undefined  | null
 }
+
+export type Favorite = {
+    name:string | undefined  | null,
+    is:boolean | undefined  | null
+}

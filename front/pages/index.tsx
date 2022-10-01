@@ -3,8 +3,36 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Home: NextPage = () => {
+  const handleSubmit = async (event:any) => {
+    // Stop the form from submitting and refreshing the page.
+    event.preventDefault()
+    const data = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    }
+
+    const JSONdata = JSON.stringify(data)
+    const endpoint = `/api/get-user`
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      body: JSONdata,
+    }
+
+    const response = await fetch(endpoint, options)
+    const result = await response.json()
+    if(result){
+      Router.push('/repositories')
+      return
+    }
+    alert(`Wrong`)
+  }
+
   return (
     <div className='h-full bg-hello-blue-dark'>
       <Head>
@@ -31,11 +59,11 @@ const Home: NextPage = () => {
                 <Link href="/register" >
                  <p className='ml-2 cursor-pointer className="font-medium text-hello-green hover:text-hello-blue-light"'>
                     Complete Register
-                    </p> 
+                    </p>
                 </Link>
               </p>
             </div>
-            <form className="mt-8 space-y-6" action="/repositories" method="POST" autoComplete='off'>
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit} autoComplete='off'>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div>

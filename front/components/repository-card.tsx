@@ -1,6 +1,12 @@
 import { Repository } from '../types/types'
-
-const RepositoryCard = ({repository}: {repository: Repository}) => {
+import {useEffect, useReducer, createContext, useContext, useMemo, useState } from "react";
+import { FavoriteProvider, useFavorite } from '../context/FavoriteContext';
+import Router from 'next/router' 
+const RepositoryCard = ({repository}: {repository: Repository}) => {  
+    const { favorites, setFavorites } = useFavorite();
+    if (!favorites.find(element => element.name === repository.name)){
+        favorites.push({name:repository.name, is:false})
+    }
     return (
         <div className="flex items-center justify-start w-full py-8">
             <div className="w-11/12 py-6 pl-6 pr-12 bg-white rounded shadow dark:bg-hello-black">
@@ -73,13 +79,19 @@ const RepositoryCard = ({repository}: {repository: Repository}) => {
                         </div>
                     </div>                                                            
                 </div>
-                {repository.favorite &&(
+                {favorites[favorites.findIndex(element => element.name === repository.name)].is &&(
                     <div className='flex items-center justify-between pt-4'>
                     <div className="w-5/6 h-2 mt-4 rounded-full bg-hello-green/50">
                         <div className="w-5/6 h-2 rounded-full bg-hello-green" />
                     </div>                       
                     <button
-                        onClick={()=> {repository.favorite = false}}
+                        onClick={()=> {
+                            let newFavorites = favorites
+                            let index = newFavorites.findIndex(element => element.name === repository.name)
+                            newFavorites[index].is = false  
+                            setFavorites(newFavorites)
+                            Router.push('/repositories')
+                        }}
                         className='flex justify-between w-fit'
                     >
                         <svg className="w-4 text-yellow-400 icon icon-tabler icon-tabler-star" xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
@@ -91,14 +103,21 @@ const RepositoryCard = ({repository}: {repository: Repository}) => {
                     </div>
                 )}
 
-                {!repository.favorite &&(
+                {!favorites[favorites.findIndex(element => element.name === repository.name)].is &&(
                     <div className='flex items-center justify-between pt-4'>
                     <div className="w-5/6 h-2 mt-4 rounded-full bg-hello-green/50">
                         <div className="w-5/6 h-2 rounded-full bg-hello-green" />
                     </div>                       
                     <button 
                     className='flex justify-between w-fit'
-                    onClick={()=> {repository.favorite = true}}
+                    onClick={()=> { 
+                        let newFavorites = favorites
+                        let index = newFavorites.findIndex(element => element.name === repository.name)
+                        newFavorites[index].is = true  
+                        setFavorites(newFavorites)
+                        Router.push('/repositories')
+
+                    }}
 
                     >
                         <svg className="w-4 text-white icon icon-tabler icon-tabler-star" xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">

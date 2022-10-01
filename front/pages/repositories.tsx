@@ -4,22 +4,36 @@ import Image from 'next/image'
 import NavBar from '../components/nav-bar'
 import {useSession, signIn, signOut } from 'next-auth/react'
 import useSWR from 'swr'
-import { Nav, Repository } from '../types/types'
+import { Favorite, Nav, Repository } from '../types/types'
 import RepositoryCard from '../components/repository-card'
+import { useContext, useEffect } from 'react'
+import { useFavorite } from '../context/FavoriteContext'
 const fetcher = (...args: any) => fetch(args,args).then((res) => res.json())
 
 
 const Repositories: NextPage = () => {
- 
     const { data: session } = useSession()
     const { data, error } = useSWR('/api/repositories', fetcher)
-    if (error && session) return <div>Failed to load</div>
+    if (error && session) return (
+        <div>
+            <h1>
+            Si sale este mensaje es que el token de github personal expiro
+            </h1>
+            <strong>
+                toca cambiarlo, yo lo puedo hacer este es mi numero 3193888291
+            </strong>
+            <img src="/token-personal-expired.png" alt="" />
+      
+        </div>
+    )
+
     if (!data && session) return <div>Loading...</div>
     let repositories:Repository[] = data;
     let nav: Nav = {
         image: session?.user?.image,
         current:0,
-    }   
+    } 
+        
     return (
 
         <div className='h-full bg-hello-blue-dark'>
