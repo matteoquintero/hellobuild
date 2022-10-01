@@ -31,6 +31,7 @@ npm run hello-api
 cd front
 ```
 
+```
 npm i
 ```
 
